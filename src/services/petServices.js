@@ -30,6 +30,20 @@ const create = async (formData) => {
       console.log(err);
     }
   };
+
+  // src/services/petService.js
+
+const deletePet = async (petId) => {
+    try {
+      const deletedPet = await fetch(`${BASE_URL}/${petId}`, {
+        method: 'DELETE',
+      });
+      return deletedPet;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  
   
 
 export { index };
