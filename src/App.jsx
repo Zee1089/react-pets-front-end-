@@ -1,7 +1,31 @@
 // src/App.jsx
+import { useState, useEffect } from "react";
+import * as petService from './services/petServices';
+import PetList from './src/components/PetList';
+
+// src/App.jsx
 
 const App = () => {
-  return <h1>Hello world!</h1>;
+  const [petList, setPetList] = useState([]);
+
+  useEffect(() => {
+    const fetchPets = async () => {
+      try {
+        const pets = await petService.index();
+
+        if (pets.error) {
+          throw new Error(pets.error);
+        }
+
+        setPetList(pets);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchPets();
+  }, []);
+
+  return <PetList petList={petList} />;
 };
 
 export default App;
